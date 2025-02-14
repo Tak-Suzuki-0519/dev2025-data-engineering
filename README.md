@@ -12,11 +12,11 @@
   - [:fire:Others](#fireothers)
 
 ---------------------------------------
-# :fire:First Thing First
+# [:fire:First Thing First](#First-Thing-First)
 First Thing First
 
 ---------------------------------------
-# :fire:Technology Selection
+# [:fire:Technology Selection](#Technology-Selection)
 
 ## [:fire:High-Level Design](#High-Level-Design)
 
