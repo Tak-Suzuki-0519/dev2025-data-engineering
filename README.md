@@ -17,6 +17,7 @@ First Thing First
 
 ---------------------------------------
 # [:fire:Technology Selection](#Technology-Selection)
++ IaC) Terraform: v1.10.5
 
 ## [:fire:High-Level Design](#High-Level-Design)
 
