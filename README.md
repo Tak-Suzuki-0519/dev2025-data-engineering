@@ -17,7 +17,10 @@ First Thing First
 
 ---------------------------------------
 # [:fire:Technology Selection](#Technology-Selection)
-+ IaC) Terraform: v1.10.5
++ IaC: Terraform(1.10.5)
++ Proglaming language: Python(3.13.2)
++ Development tools: 
+  + tfenv(3.0.0), pyenv(2.5.3), 
 
 ## [:fire:High-Level Design](#High-Level-Design)
 
