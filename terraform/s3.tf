@@ -55,13 +55,13 @@ data "aws_iam_policy_document" "limited_access_only_private_admin" {
   }
 }
 */
-resource "aws_s3_object" "raw_data_day1" {
-  key    = "raw_data/partition_key=20250201/"
+resource "aws_s3_object" "raw_data_user" {
+  key    = "raw_data/user/"
   bucket = aws_s3_bucket.private_admin.id
   source = ""
 }
-resource "aws_s3_object" "raw_data_day2" {
-  key    = "raw_data/partition_key=20250202/"
+resource "aws_s3_object" "raw_data_item" {
+  key    = "raw_data/item/"
   bucket = aws_s3_bucket.private_admin.id
   source = ""
 }
