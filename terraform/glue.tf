@@ -10,7 +10,6 @@ resource "aws_glue_catalog_database" "catalog" {
   /* TODO Lake Formation
   create_table_default_permission {
     permissions = ["SELECT"]
-
     principal {
       data_lake_principal_identifier = "IAM_ALLOWED_PRINCIPALS"
     }
@@ -108,20 +107,6 @@ resource "aws_glue_catalog_table" "catalog_table_item" {
         "quoteChar"     = "\""
       }
     }
-    /*
-  storage_descriptor {
-    location      = "s3://private-admin-bucket-20250215/raw_data/item/"
-    input_format  = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat"
-    output_format = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat"
-
-    ser_de_info {
-      name                  = "parquet_serde"
-      serialization_library = "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe"
-      parameters = {
-        "serialization.format" = 1
-      }
-    }
-*/
     columns {
       name = "item_id"
       type = "int"
@@ -140,9 +125,9 @@ resource "aws_glue_catalog_table" "catalog_table_item" {
     }
   }
 }
-resource "aws_glue_crawler" "crawler" {
+resource "aws_glue_crawler" "raw_data_crawler" {
   database_name = aws_glue_catalog_database.catalog.name
-  name          = "crawler"
+  name          = "raw_data_crawler"
   role          = aws_iam_role.glue_service_role.arn
   # TODO iceberg_targetの設定を、後で実装するか含め確認
 
@@ -155,11 +140,27 @@ resource "aws_glue_crawler" "crawler" {
     sample_size = 10
   }
 }
-resource "aws_glue_trigger" "crawler_trigger" {
-  name = "crawler_trigger"
+resource "aws_glue_crawler" "loaded_data_crawler" {
+  name          = "loaded_data_crawler"
+  database_name = aws_glue_catalog_database.catalog.name
+  role          = aws_iam_role.glue_service_role.arn
+  s3_target {
+    path        = "s3://private-admin-bucket-20250215/loaded_data/"
+    sample_size = 10
+  }
+}
+resource "aws_glue_trigger" "raw_data_trigger" {
+  name = "raw_data_trigger"
   type = "ON_DEMAND"
   actions {
-    crawler_name = aws_glue_crawler.crawler.name
+    crawler_name = aws_glue_crawler.raw_data_crawler.name
+  }
+}
+resource "aws_glue_trigger" "loaded_data_trigger" {
+  name = "loaded_data_trigger"
+  type = "ON_DEMAND"
+  actions {
+    crawler_name = aws_glue_crawler.loaded_data_crawler.name
   }
 }
 resource "aws_glue_trigger" "etl_trigger" {

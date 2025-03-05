@@ -64,3 +64,45 @@ resource "aws_iam_role_policy" "role_policy_glue" {
 }
   EOF
 }
+# athena
+resource "aws_s3_bucket_policy" "athena_query_results" {
+  bucket = "private-admin-bucket-20250215"
+
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "AthenaQueryResultsWrite",
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : "athena.amazonaws.com"
+        },
+        "Action" : "s3:PutObject",
+        "Resource" : "arn:aws:s3:::private-admin-bucket-20250215/athena_result/*"
+      },
+      {
+        "Sid" : "AthenaGetBucketLocation",
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : "athena.amazonaws.com"
+        },
+        "Action" : "s3:GetBucketLocation",
+        "Resource" : "arn:aws:s3:::private-admin-bucket-20250215"
+      },
+      {
+        "Sid" : "AthenaListBucket",
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : "athena.amazonaws.com"
+        },
+        "Action" : "s3:ListBucket",
+        "Resource" : "arn:aws:s3:::private-admin-bucket-20250215",
+        "Condition" : {
+          "StringLike" : {
+            "s3:prefix" : "athena_result/*"
+          }
+        }
+      }
+    ]
+  })
+}
