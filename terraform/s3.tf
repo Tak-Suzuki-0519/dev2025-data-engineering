@@ -3,7 +3,8 @@
 # -----------------------------------
 # private bucket for admin use
 resource "aws_s3_bucket" "private_admin" {
-  bucket = "private-admin-bucket-20250215"
+  bucket        = "private-admin-bucket-20250215"
+  force_destroy = true # only for dev test
   tags = {
     Name = "private-admin-bucket-20250215"
   }
@@ -54,3 +55,23 @@ data "aws_iam_policy_document" "limited_access_only_private_admin" {
   }
 }
 */
+resource "aws_s3_object" "raw_data_day1" {
+  key    = "raw_data/partition_key=20250201/"
+  bucket = aws_s3_bucket.private_admin.id
+  source = ""
+}
+resource "aws_s3_object" "raw_data_day2" {
+  key    = "raw_data/partition_key=20250202/"
+  bucket = aws_s3_bucket.private_admin.id
+  source = ""
+}
+resource "aws_s3_object" "catalog_table" {
+  key    = "catalog_table/"
+  bucket = aws_s3_bucket.private_admin.id
+  source = ""
+}
+resource "aws_s3_object" "loaded_data" {
+  key    = "loaded_data/"
+  bucket = aws_s3_bucket.private_admin.id
+  source = ""
+}

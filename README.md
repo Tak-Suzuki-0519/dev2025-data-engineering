@@ -3,9 +3,9 @@
 > dev about Data Engineering stuff
 > 
 
-# 目次
+# Table of Contents
 - [:fire:dev2025-data-engineering:fire:](#firedev2025-data-engineeringfire)
-- [目次](#目次)
+- [Table of Contents](#table-of-contents)
 - [:fire:First Thing First](#firefirst-thing-first)
 - [:fire:Technology Selection](#firetechnology-selection)
   - [:fire:High-Level Design](#firehigh-level-design)
