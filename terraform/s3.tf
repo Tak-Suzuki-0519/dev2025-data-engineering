@@ -75,3 +75,8 @@ resource "aws_s3_object" "loaded_data" {
   bucket = aws_s3_bucket.private_admin.id
   source = ""
 }
+resource "aws_s3_object" "athena_result" {
+  key    = "athena_result/"
+  bucket = aws_s3_bucket.private_admin.id
+  source = ""
+}
