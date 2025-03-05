@@ -19,7 +19,7 @@ First Thing First
 # [:fire:Technology Selection](#Technology-Selection)
 + IaC: Terraform(1.10.5)
 + AWS Services
-  + Glue(Apache Spark), Athena, S3, IAM, 
+  + Glue(Apache Spark), Athena, S3, IAM, QuickSight, 
 + Proglaming language: Python(3.13.2)
 + Development tools: 
   + tfenv(3.0.0), pyenv(2.5.3), 
